@@ -1,0 +1,9 @@
+<project name="com.boroborome.finance.model" default="jar project">
+
+  <target name="jar project"
+      description="make a jar for this project">
+      <jar destfile="${dist}/lib/app.jar">
+          
+      </jar>
+</project>
+
