@@ -26,7 +26,7 @@
       <fontname>Lucida Grande</fontname>
       <fontsize>13</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>类图-WebServer</activediagram>
+      <activediagram>类图-Model</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -73,7 +73,7 @@
 			Java
 		</plugin>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sat Dec 07 00:23:57 CST 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sat Dec 07 23:19:04 CST 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -719,7 +719,7 @@
               </UML:StructuralFeature.type>
             </UML:Attribute>
             <UML:Attribute xmi.id = '127-0-0-1-7c77392b:142be28fd79:-8000:0000000000000E9F'
-              name = 'diedLine' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+              name = 'deadline' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
               changeability = 'changeable' targetScope = 'instance'>
               <UML:StructuralFeature.multiplicity>
                 <UML:Multiplicity xmi.id = '127-0-0-1-7c77392b:142be28fd79:-8000:0000000000000EA0'>
@@ -818,7 +818,7 @@
               </UML:StructuralFeature.type>
             </UML:Attribute>
             <UML:Attribute xmi.id = '127-0-0-1-7c77392b:142be28fd79:-8000:0000000000000E98'
-              name = 'diedLine' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+              name = 'deadline' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
               changeability = 'changeable' targetScope = 'instance'>
               <UML:StructuralFeature.multiplicity>
                 <UML:Multiplicity xmi.id = '127-0-0-1-7c77392b:142be28fd79:-8000:0000000000000E99'>
@@ -1077,7 +1077,7 @@
           <UML:Stereotype.baseClass>Abstraction</UML:Stereotype.baseClass>
         </UML:Stereotype>
         <UML:Class xmi.id = '127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EC6'
-          name = 'QueryPage' visibility = 'public' isSpecification = 'false' isRoot = 'false'
+          name = 'DataPage' visibility = 'public' isSpecification = 'false' isRoot = 'false'
           isLeaf = 'false' isAbstract = 'false' isActive = 'false'>
           <UML:Classifier.feature>
             <UML:Attribute xmi.id = '127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EC7'
@@ -1402,7 +1402,7 @@
       justification="Center"
     >AgentServerlet</text>
     <group name="Fig1.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[457, 201, 136, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[457, 201, 155, 0]"
          href="127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EE4"
          fill="0"
          fillcolor="white"
@@ -1416,7 +1416,7 @@
       <rectangle name="Fig1.2.0"
         x="457"
         y="201"
-        width="136"
+        width="155"
         height="0"
         fill="0"
         fillcolor="white"
@@ -1527,7 +1527,7 @@
       justification="Center"
     >FinanceLogic</text>
     <group name="Fig2.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[609, 41, 150, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[609, 41, 356, 0]"
          href="127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EE6"
          fill="0"
          fillcolor="white"
@@ -1541,7 +1541,7 @@
       <rectangle name="Fig2.2.0"
         x="609"
         y="41"
-        width="150"
+        width="356"
         height="0"
         fill="0"
         fillcolor="white"
@@ -1739,7 +1739,7 @@
                         offset="5" />
     </private>
     <path name="Fig3.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -1789,7 +1789,7 @@
       justification="Center"
     >SummeryLogic</text>
     <group name="Fig4.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[681, 209, 64, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[681, 209, 100, 0]"
          href="127-0-0-1--7212df31:142c898be75:-8000:0000000000000EF5"
          fill="0"
          fillcolor="white"
@@ -1803,7 +1803,7 @@
       <rectangle name="Fig4.2.0"
         x="681"
         y="209"
-        width="64"
+        width="100"
         height="0"
         fill="0"
         fillcolor="white"
@@ -1921,7 +1921,7 @@
                         offset="5" />
     </private>
     <path name="Fig5.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -1977,7 +1977,7 @@
     <path name="Fig6.2"
       description="org.tigris.gef.presentation.FigPoly"
       fill="1"
-      fillcolor="178 178 178"
+      fillcolor="white"
       stroke="1"
       strokecolor="black"
     >
@@ -1997,6 +1997,7 @@
          fillcolor="white"
          stroke="0"
          strokecolor="black"
+         visibility="0"
     >
       <private>
       </private>
@@ -2083,7 +2084,7 @@
     <path name="Fig8.2"
       description="org.tigris.gef.presentation.FigPoly"
       fill="1"
-      fillcolor="178 178 178"
+      fillcolor="white"
       stroke="1"
       strokecolor="black"
     >
@@ -2103,6 +2104,7 @@
          fillcolor="white"
          stroke="0"
          strokecolor="black"
+         visibility="0"
     >
       <private>
       </private>
@@ -2173,7 +2175,7 @@
       justification="Center"
     >RecordListPage</text>
     <group name="Fig9.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[73, 113, 64, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[73, 113, 103, 0]"
          href="127-0-0-1--7212df31:142c898be75:-8000:0000000000000F00"
          fill="0"
          fillcolor="white"
@@ -2187,7 +2189,7 @@
       <rectangle name="Fig9.2.0"
         x="73"
         y="113"
-        width="64"
+        width="103"
         height="0"
         fill="0"
         fillcolor="white"
@@ -2298,7 +2300,7 @@
       justification="Center"
     >RecordPage</text>
     <group name="Fig10.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[225, 57, 64, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[225, 57, 80, 0]"
          href="127-0-0-1--7212df31:142c898be75:-8000:0000000000000F01"
          fill="0"
          fillcolor="white"
@@ -2312,7 +2314,7 @@
       <rectangle name="Fig10.2.0"
         x="225"
         y="57"
-        width="64"
+        width="80"
         height="0"
         fill="0"
         fillcolor="white"
@@ -2423,7 +2425,7 @@
       justification="Center"
     >SummeryPage</text>
     <group name="Fig11.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[217, 169, 64, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[217, 169, 95, 0]"
          href="127-0-0-1--7212df31:142c898be75:-8000:0000000000000F02"
          fill="0"
          fillcolor="white"
@@ -2437,7 +2439,7 @@
       <rectangle name="Fig11.2.0"
         x="217"
         y="169"
-        width="64"
+        width="95"
         height="0"
         fill="0"
         fillcolor="white"
@@ -5586,7 +5588,7 @@
       justification="Center"
     >All batch operation will support progress bar</text>
     <group name="Fig44.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[499, 594, 90, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[496, 614, 290, 0]"
          href="127-0-0-1--7212df31:142c898be75:-8000:0000000000000EED"
          fill="0"
          fillcolor="white"
@@ -5598,9 +5600,9 @@
       </private>
       
       <rectangle name="Fig44.2.0"
-        x="499"
-        y="594"
-        width="90"
+        x="496"
+        y="614"
+        width="290"
         height="0"
         fill="0"
         fillcolor="white"
@@ -5609,8 +5611,8 @@
       />
     </group>
     <rectangle name="Fig44.3"
-      x="498"
-      y="594"
+      x="10"
+      y="10"
       width="11"
       height="1"
       fill="1"
@@ -5620,7 +5622,7 @@
       visibility="0"
     />
     <group name="Fig44.4"
-         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[498, 594, 64, 19]"
+         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[10, 10, 64, 19]"
          href="127-0-0-1--7212df31:142c898be75:-8000:0000000000000EED"
          fill="1"
          fillcolor="white"
@@ -5632,8 +5634,8 @@
       </private>
       
       <rectangle name="Fig44.4.0"
-        x="498"
-        y="594"
+        x="10"
+        y="10"
         width="64"
         height="19"
         fill="0"
@@ -7212,7 +7214,7 @@
         bold="false"
         textsize="13"
         justification="Left"
-      >diedLine : int</text>
+      >deadline : int</text>
       <text name="Fig0.4.8"
         x="57"
         y="240"
@@ -7433,7 +7435,7 @@
         bold="false"
         textsize="13"
         justification="Left"
-      >diedLine : int</text>
+      >deadline : int</text>
       <text name="Fig1.4.5"
         x="465"
         y="205"
@@ -7751,7 +7753,7 @@
       <text name="Fig3.4.2"
         x="777"
         y="170"
-        width="146"
+        width="148"
         height="23"
         fill="0"
         fillcolor="white"
@@ -8286,7 +8288,7 @@ No class define</text>
     </path>
   </group>
   <group name="Fig12"
-       description="org.argouml.uml.diagram.static_structure.ui.FigClass[288, 304, 152, 139]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
+       description="org.argouml.uml.diagram.static_structure.ui.FigClass[248, 216, 152, 139]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
        href="127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EC6"
        fill="1"
        fillcolor="white"
@@ -8297,8 +8299,8 @@ No class define</text>
     </private>
     
     <rectangle name="Fig12.0"
-      x="288"
-      y="304"
+      x="248"
+      y="216"
       width="152"
       height="139"
       fill="1"
@@ -8307,8 +8309,8 @@ No class define</text>
       strokecolor="black"
     />
     <text name="Fig12.1"
-      x="289"
-      y="305"
+      x="249"
+      y="217"
       width="150"
       height="23"
       fill="0"
@@ -8321,9 +8323,9 @@ No class define</text>
       bold="false"
       textsize="13"
       justification="Center"
-    >QueryPage</text>
+    >DataPage</text>
     <group name="Fig12.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[289, 305, 150, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[249, 217, 150, 0]"
          href="127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EC6"
          fill="0"
          fillcolor="white"
@@ -8335,8 +8337,8 @@ No class define</text>
       </private>
       
       <rectangle name="Fig12.2.0"
-        x="289"
-        y="305"
+        x="249"
+        y="217"
         width="150"
         height="0"
         fill="0"
@@ -8346,8 +8348,8 @@ No class define</text>
       />
     </group>
     <rectangle name="Fig12.3"
-      x="288"
-      y="328"
+      x="248"
+      y="240"
       width="152"
       height="1"
       fill="1"
@@ -8356,7 +8358,7 @@ No class define</text>
       strokecolor="black"
     />
     <group name="Fig12.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[289, 329, 150, 93]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[249, 241, 150, 93]"
          href="127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EC6"
          fill="0"
          fillcolor="white"
@@ -8367,8 +8369,8 @@ No class define</text>
       </private>
       
       <rectangle name="Fig12.4.0"
-        x="289"
-        y="329"
+        x="249"
+        y="241"
         width="150"
         height="93"
         fill="0"
@@ -8377,8 +8379,8 @@ No class define</text>
         strokecolor="black"
       />
       <text name="Fig12.4.1"
-        x="289"
-        y="329"
+        x="249"
+        y="241"
         width="150"
         height="17"
         fill="0"
@@ -8393,8 +8395,8 @@ No class define</text>
         justification="Left"
       >sessionID : String</text>
       <text name="Fig12.4.2"
-        x="289"
-        y="346"
+        x="249"
+        y="258"
         width="150"
         height="17"
         fill="0"
@@ -8409,8 +8411,8 @@ No class define</text>
         justification="Left"
       >resultIterator : Iterator</text>
       <text name="Fig12.4.3"
-        x="289"
-        y="363"
+        x="249"
+        y="275"
         width="150"
         height="17"
         fill="0"
@@ -8425,8 +8427,8 @@ No class define</text>
         justification="Left"
       >totalPageCount : int</text>
       <text name="Fig12.4.4"
-        x="289"
-        y="380"
+        x="249"
+        y="292"
         width="150"
         height="17"
         fill="0"
@@ -8441,8 +8443,8 @@ No class define</text>
         justification="Left"
       >curPageIndex : int</text>
       <text name="Fig12.4.5"
-        x="289"
-        y="397"
+        x="249"
+        y="309"
         width="150"
         height="23"
         fill="0"
@@ -8458,8 +8460,8 @@ No class define</text>
       >pageSize : int</text>
     </group>
     <rectangle name="Fig12.5"
-      x="288"
-      y="421"
+      x="248"
+      y="333"
       width="152"
       height="1"
       fill="1"
@@ -8468,7 +8470,7 @@ No class define</text>
       strokecolor="black"
     />
     <group name="Fig12.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[289, 422, 150, 21]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[249, 334, 150, 21]"
          href="127-0-0-1--47a2b8dc:142c3218eaf:-8000:0000000000000EC6"
          fill="0"
          fillcolor="white"
@@ -8479,8 +8481,8 @@ No class define</text>
       </private>
       
       <rectangle name="Fig12.6.0"
-        x="289"
-        y="422"
+        x="249"
+        y="334"
         width="150"
         height="21"
         fill="0"
@@ -8631,7 +8633,7 @@ No class define</text>
         bold="false"
         textsize="13"
         justification="Left"
-      >queryRecord(sessionID : String,condition : String,pageSize : int,queryPageIndex : int) : QueryPage</text>
+      >queryRecord(sessionID : String,condition : String,pageSize : int,queryPageIndex : int) : DataPage</text>
       <text name="Fig0.4.3"
         x="25"
         y="87"
