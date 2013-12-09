@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,11 +27,15 @@ public class JSONAgentServlet extends HttpServlet
 	public JSONAgentServlet()
 	{
 		super();
-		initJSONMoudle();
 	}
 
-	private void initJSONMoudle()
+	/* (non-Javadoc)
+	 * @see javax.servlet.GenericServlet#init()
+	 */
+	@Override
+	public void init() throws ServletException
 	{
+		super.init();
 		regJSONModule("finance", new FinanceModule());
 	}
 
@@ -45,51 +50,63 @@ public class JSONAgentServlet extends HttpServlet
 		mapModule.put(moduleInfo.getModuelName(), moduleInfo);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException
+	{
+		doServletAction(req, resp);
+	}
+
+
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException
+	{
+		doServletAction(req, resp);
+	}
+	
+	private void doServletAction(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		resp.setContentType("text/plain");
 		String uri = req.getRequestURI();
 		
 		//find out the moduleName and methodName;
 		String moduleMethod = uri.substring(AgentName.length());
-		String[] aryModuleInfo = moduleMethod.split("\\\\.");
+		String[] aryModuleInfo = moduleMethod.split("\\.");
 		if (aryModuleInfo == null || aryModuleInfo.length != 2)
 		{
-			responseError(resp);
+			resp.getWriter().print("Unkown uri:" + uri);
 			return;
 		}
-		JSONModuleInfo moduleInfo = this.mapModule.get(aryModuleInfo[0]);
+		String moduleName = aryModuleInfo[0];
+		JSONModuleInfo moduleInfo = this.mapModule.get(moduleName);
 		if (moduleInfo == null)
 		{
-			responseError(resp);
+			resp.getWriter().print("Unkown module:" + moduleName + " in uri:" + uri);
 			return;
 		}
 		
-		JSONMethodInfo method = moduleInfo.getMapMethod().get(aryModuleInfo[1]);
+		String methodName = aryModuleInfo[1];
+		JSONMethodInfo method = moduleInfo.getMapMethod().get(methodName);
 		if (method == null)
 		{
-			responseError(resp);
+			resp.getWriter().print("Unkown method:" + methodName + " in module:" + moduleName + " uri:" + uri);
 			return;
 		}
 		
 		try
 		{
 			String result = (String) method.getJavaMethod().invoke(moduleInfo.getModule(), req);
-			resp.getWriter().println(result);
+			resp.getWriter().print(result);
 		}
 		catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(resp.getWriter());
 		}
 
-	}
-
-	private void responseError(HttpServletResponse resp)
-	{
-		// TODO Auto-generated method stub
-		
 	}
 }
