@@ -36,7 +36,8 @@ public class JSONAgentServlet extends HttpServlet
 	public void init() throws ServletException
 	{
 		super.init();
-		regJSONModule("finance", new FinanceModule());
+		//TODO regeist Moudle
+//		regJSONModule("finance", new FinanceModule());
 	}
 
 	public void regJSONModule(String jsonModuleName, IJSONModule module)
