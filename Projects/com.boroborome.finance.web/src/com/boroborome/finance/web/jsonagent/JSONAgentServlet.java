@@ -1,19 +1,20 @@
 /**
  * 
  */
-package com.boroborome.finace.web.jsonagent;
+package com.boroborome.finance.web.jsonagent;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.boroborome.finace.web.jsonmodule.FinanceModule;
+import com.boroborome.finance.web.jsonmodule.FinanceModule;
 
 /**
  * @author boroborome
@@ -21,6 +22,9 @@ import com.boroborome.finace.web.jsonmodule.FinanceModule;
  */
 public class JSONAgentServlet extends HttpServlet 
 {
+	private final PersistenceManagerFactory pmf =
+		    JDOHelper.getPersistenceManagerFactory("transactions-optional");
+	
 	public static final String AgentName = "/agent/";
 	private Map<String, JSONModuleInfo> mapModule = new HashMap<>();
 	
@@ -37,7 +41,7 @@ public class JSONAgentServlet extends HttpServlet
 	{
 		super.init();
 		//TODO regeist Moudle
-//		regJSONModule("finance", new FinanceModule());
+		regJSONModule("finance", new FinanceModule(pmf));
 	}
 
 	public void regJSONModule(String jsonModuleName, IJSONModule module)
@@ -103,8 +107,7 @@ public class JSONAgentServlet extends HttpServlet
 			String result = (String) method.getJavaMethod().invoke(moduleInfo.getModule(), req);
 			resp.getWriter().print(result);
 		}
-		catch (IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e)
+		catch (Exception e)
 		{
 			e.printStackTrace(resp.getWriter());
 		}

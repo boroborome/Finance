@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.boroborome.finace.web.jsonmodule;
+package com.boroborome.finance.web.jsonmodule;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.boroborome.finace.web.jsonagent.IJSONModule;
+import com.boroborome.finance.web.jsonagent.IJSONModule;
 
 /**
  * TODO to be implement in feature.

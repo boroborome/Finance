@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.boroborome.finace.web.annotation;
+package com.boroborome.finance.web.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

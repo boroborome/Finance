@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.boroborome.finace.web.jsonagent;
+package com.boroborome.finance.web.jsonagent;
 
 import java.lang.reflect.Method;
 

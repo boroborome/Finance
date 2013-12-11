@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.boroborome.finace.web.jsonagent;
+package com.boroborome.finance.web.jsonagent;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.boroborome.finace.web.annotation.JSONMethod;
+import com.boroborome.finance.web.annotation.JSONMethod;
 
 /**
  * @author boroborome
