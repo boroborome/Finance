@@ -104,8 +104,7 @@ public class JSONAgentServlet extends HttpServlet
 		
 		try
 		{
-			String result = (String) method.getJavaMethod().invoke(moduleInfo.getModule(), req);
-			resp.getWriter().print(result);
+			method.invokeMethod(req, resp);
 		}
 		catch (Exception e)
 		{

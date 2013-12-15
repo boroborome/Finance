@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.boroborome.finance.model.FinanceException;
 import com.boroborome.finance.web.annotation.JSONMethod;
 
 /**
@@ -46,17 +47,13 @@ public class JSONModuleInfo
 				continue;
 			}
 			
-			//check the input&output of this method
-			if (method.getReturnType() != String.class
-					|| method.getParameterTypes() == null
-					|| method.getParameterTypes().length != 1
-					|| method.getParameterTypes()[0] != HttpServletRequest.class)
+			JSONMethodStrategy strategy = JSONMethodStrategy.findMatchStrategy(method);
+			if (strategy == null)
 			{
-				//TODO should write log
 				continue;
 			}
 			
-			mapMethod.put(methodAnn.name(), new JSONMethodInfo(methodAnn.name(), this, method));
+			mapMethod.put(methodAnn.name(), new JSONMethodInfo(methodAnn.name(), this, method, strategy));
 		}
 	}
 

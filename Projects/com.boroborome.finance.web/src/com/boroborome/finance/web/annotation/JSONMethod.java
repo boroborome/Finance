@@ -9,8 +9,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The method should declare like 
- * public String funName(HttpServletRequest req) throws XXXException
+ * The method should declare like <br>
+ * public String funName(HttpServletRequest req) throws XXXException<br>
+ * public void funName(HttpServletRequest req, Writer writer) throws XXXException<br>
  * @author boroborome
  *
  */
