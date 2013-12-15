@@ -8,20 +8,61 @@
 
 <html>
   <head>
+  	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/financemodule.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	  $("#btnAdd").click(function(){
+	  
+	  });
+	  $("#btnModify").click(function(){
+	  
+	  });
+	  $("#btnDelete").click(function(){
+	  
+	  });
+	  $("#btnQuery").click(function(){
+	  	loadFinanceData();
+	  });
+	  
+	});
+	function loadFinanceData()
+	{
+		$.post("/agent/finance.query",
+	    {
+	      name:"Donald Duck",
+	      city:"Duckburg"
+	    },
+	    function(data,status)
+	    {
+	    	//var aryRecord = eval(data);
+	    	var aryRecord = data.evalJSON(true);
+	    	for (index = 0, size = aryRecord.length;index < size; ++index)
+	    	{
+	    		var record = aryRecord[index];
+	    		var rowData = "<tr><td>" + record.date + "</td><td>"
+	    			+ record.wares + "</td></tr>";
+	    		$("#tblFinance").append(rowData);
+	    	}
+	 
+	    });
+	}
+	</script>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
+    <title>Finance</title>
   </head>
 
   <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="com_boroborome_finace_web">Com_boroborome_finace_web</a></td>
-      </tr>
+    <h1>Finance</h1>
+	<button id="btnAdd">Add</button>
+	<button id="btnModify">Modify</button>
+	<button id="btnDelete">Delete</button>
+	<button id="btnQuery">Query</button>
+	<div id="txtStatus">Loading...</div>
+    <table id="tblFinance" border="1">
+    	<tr>
+    		<th>Date</th><th>Wares</th>
+    	</tr>
     </table>
   </body>
 </html>

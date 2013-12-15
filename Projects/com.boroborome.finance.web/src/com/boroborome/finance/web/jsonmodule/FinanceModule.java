@@ -46,10 +46,10 @@ public class FinanceModule implements IJSONModule
 		{
 //			FinanceRecord r = resultPage.getResultIterator().next();
 			JSONObject jsonRecord = new JSONObject();
-			jsonRecord.append("date", "2013-12-11");
-			jsonRecord.append("wares", "Apple");
-			jsonRecord.append("price", "4");
-			jsonRecord.append("unit", "Jin");
+			jsonRecord.put("date", "2013-12-11");
+			jsonRecord.put("wares", "Apple");
+			jsonRecord.put("price", "4");
+			jsonRecord.put("unit", "Jin");
 //			jsonRecord.append(r., arg1)
 			
 			aryRecord.put(jsonRecord);
