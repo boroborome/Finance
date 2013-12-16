@@ -31,20 +31,40 @@ public class JSONUtil
 		mapSimpleData.put(Double.class, Boolean.TRUE);
 	}
 	
-	public static void saveObj2WriterInJSON(Object obj, Writer writer) throws IOException
+	public static boolean isSimpleData(Class type)
 	{
-		if (obj == null || mapSimpleData.containsKey(obj.getClass()))
+		Boolean isSimple = mapSimpleData.get(type);
+		return isSimple == null ? false : isSimple.booleanValue();
+	}
+	
+	public static void saveObj2WriterInJSON(Object obj, Writer writer) throws Exception
+	{
+		if (obj == null || isSimpleData(obj.getClass()))
 		{
 			writer.write(String.valueOf(obj));
 			return;
 		}
 		
-		Stack<Object> stackObj = new Stack<Object>();
-		stackObj.push(obj);
+		AbstractJSONOutputFrame rootFrame = AbstractJSONOutputFrame.parse(obj);
+		if (rootFrame == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		Stack<AbstractJSONOutputFrame> stackObj = new Stack<AbstractJSONOutputFrame>();
+		stackObj.push(rootFrame);
 		while (!stackObj.isEmpty())
 		{
-			Object curObj = stackObj.lastElement();
+			AbstractJSONOutputFrame curFrame = stackObj.lastElement();
 			
+			if (curFrame.isFinishOutput())
+			{
+				curFrame.closeOutput(writer);
+				stackObj.pop();
+				continue;
+			}
+			
+			curFrame.outputContent(writer, stackObj);
 		}
 	}
 	
