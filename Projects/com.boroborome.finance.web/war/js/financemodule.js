@@ -1,20 +1,28 @@
 /**
  * 
  */
-goog.provide("com.boroborome.finance");
-function appendRecord2Table(record)
+goog.provide('com.boroborome.finance');
+goog.provide('com.boroborome.finance.AddDialogLogic');
+
+
+com.boroborome.finance.AddDialogLogic = function(dialog)
 {
-}
-function loadFinanceData()
+	this.dialog = dialog;
+};
+
+com.boroborome.finance.AddDialogLogic.prototype.appendRecord2Table = function (record)
 {
-	$.post("/agent/finance.query",
+};
+com.boroborome.finance.AddDialogLogic.prototype.loadFinanceData = function()
+{
+	$.post('/agent/finance.query',
     {
-      name:"Donald Duck",
-      city:"Duckburg"
+      name:'Donald Duck',
+      city:'Duckburg'
     },
     function(data,status)
     {
-    	if (data.charAt(0) != '\"')
+    	if (data.charAt(0) != '\'')
     	{
     		alert(data);
     		return;
@@ -24,82 +32,57 @@ function loadFinanceData()
     	for (index = 0, size = aryRecord.length;index < size; ++index)
     	{
     		var record = aryRecord[index];
-    		var rowData = "<tr><td>" + record.date + "</td><td>"
-    			+ record.wares + "</td></tr>";
-    		$("#tblFinance").append(rowData);
+    		var rowData = '<tr><td>' + record.date + '</td><td>'
+    			+ record.wares + '</td></tr>';
+    		$('#tblFinance').append(rowData);
     	}
  
     });
     
-}
-$(document).ready(function()
-{
-	$("#btnAdd").click(function()
-	{
-		$("#dlgFinanceInfo").dialog("open");
-	});
-	$("#btnModify").click(function()
-	{
-  
-	});
-	$("#btnDelete").click(function(){
-  
-	});
-	$("#btnQuery").click(function(){
-		loadFinanceData();
-	});
-  
+};
 
-    $("#dlgFinanceInfo").dialog({
-		autoOpen: false,
-		width:400,
-		dialogClass: "no-close",
-		buttons: [
-		          {
-		        	  text: "OK",
-		        	  click: function(){$(this).btnOK();}
-		          }]
-    });
-	  
-    addDlg.btnOK=function()  
-    {
-    	// collect all information
-       	var info = {
-       		consumeTime:$("#addDlgConsumeDate").val(),
-       		waresName:$("#addDlgWareName").val()
-       		};
-       	info.price=$("#addDlgPrice").val();
-       	info.unit=$("#addDlgUnit").val();
-       	info.deadline=$("#addDlgDeadline").val();
-       	info.kind=$("#addDlgKind").val();
-       	info.remark=$("#addDlgRemark").val();
-       	
-       	// send information to the server
-       	$.post("/agent/finance.add", info, msgReceved);
-	},
-	addDlg.msgReceved=function(data, status)
-    {
-    	if (data.charAt(0) != '\"')
-    	{
-    		updateTip(data);
-    		return;
-    	}
-    	
-    	// if the server save it success the show this record in table
-    	var record = data.evalJSON(true);
-    	appendRecord2Table(record);
-        $( this ).dialog( "close" );
-    },
-    addDlg.tips=$("#validateTips"),
-    
-    addDlg.updateTip=function(msg)
-    {
-    	tips.text( t )
-			.addClass( "ui-state-highlight" );
-		setTimeout(function() {
-			tips.removeClass( "ui-state-highlight", 1500 );
-		}, 500 );
-    }
-    
-    $("#addDlgConsumeDate").datepicker({dateFormat: "yy-mm-dd"});
-});
+com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()  
+{
+	// collect all information
+   	var info = {
+   		consumeTime:$('#addDlgConsumeDate').val(),
+   		waresName:$('#addDlgWareName').val(),
+   		price:$('#addDlgPrice').val(),
+   		unit:$('#addDlgUnit').val(),
+   		deadline:$('#addDlgDeadline').val(),
+   		kind:$('#addDlgKind').val(),
+   		remark:$('#addDlgRemark').val()
+   		};
+   	
+   	// send information to the server
+   	var logic = this;
+   	$.post('/agent/finance.add', info, function(data, status){logic.msgReceved(data, status);});
+};
+com.boroborome.finance.AddDialogLogic.prototype.msgReceved=function(data, status)
+{
+	if (data.charAt(0) != '\'')
+	{
+		this.updateTip(data);
+		return;
+	}
+	
+	// if the server save it success the show this record in table
+	var record = data.evalJSON(true);
+	this.appendRecord2Table(record);
+    this.dialog.dialog( 'close' );
+};
+com.boroborome.finance.AddDialogLogic.prototype.getTips=function()
+{
+	return $('.validateTips');
+};
+
+com.boroborome.finance.AddDialogLogic.prototype.updateTip=function(msg)
+{
+	var tipCom = this.getTips();
+	tipCom.text( msg ).addClass( 'ui-state-highlight' );
+	var logic = this;
+	setTimeout(function() {
+		tipCom.removeClass( 'ui-state-highlight', 1500 );
+	}, 500 );
+};
+

@@ -11,19 +11,60 @@
   	<meta charset="utf-8">
 	<title>Finance</title>
 	<link rel="stylesheet" href="js/jquery/themes/base/jquery.ui.all.css">
-	<script src="closure-library/closure/goog/base.js"></script>
-	<script src="js/jquery/jquery-1.9.1.js"></script>
-		<script src="js/jquery/ui/jquery.ui.core.js"></script>
-		<script src="js/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="js/jquery/ui/jquery.ui.mouse.js"></script>
-		<script src="js/jquery/ui/jquery.ui.datepicker.js"></script>
-		<script src="js/jquery/ui/jquery.ui.draggable.js"></script>
-		<script src="js/jquery/ui/jquery.ui.position.js"></script>
-		<script src="js/jquery/ui/jquery.ui.resizable.js"></script>
-		<script src="js/jquery/ui/jquery.ui.button.js"></script>
-		<script src="js/jquery/ui/jquery.ui.dialog.js"></script>
-		<script src="js/jquery/ui/jquery.ui.effect.js"></script>
+	<script type="text/javascript" src="closure-library/closure/goog/base.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.mouse.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.datepicker.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.draggable.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.position.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.resizable.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.button.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.dialog.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.effect.js"></script>
 		<script type="text/javascript" src="js/financemodule.js"></script>
+		<script type='text/javascript'>
+		
+$(document).ready(function()
+{
+	$('#btnAdd').click(function()
+	{
+		$('#dlgFinanceInfo').dialog('open');
+	});
+	$('#btnModify').click(function()
+	{
+  
+	});
+	$('#btnDelete').click(function(){
+  
+	});
+	$('#btnQuery').click(function(){
+		loadFinanceData();
+	});
+  
+	var addDialog = $('#dlgFinanceInfo');
+	var addDialogLogic = new com.boroborome.finance.AddDialogLogic(addDialog);
+    addDialog.dialog({
+		autoOpen: false,
+		width:400,
+		dialogClass: 'no-close',
+		buttons: [{
+		        	  text: 'OK',
+		        	  click: function()
+		        	  {
+		        	  	var logic = $(this).dialog("option", "dialogLogic");
+		        	  	logic.btnOK();
+		        	  }
+		          }],
+		 dialogLogic:addDialogLogic
+    });
+	
+    
+    
+    $('#addDlgConsumeDate').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
 	<style>
 		.validateTips { border: 1px solid transparent; padding: 0.3em; }
 	</style>
