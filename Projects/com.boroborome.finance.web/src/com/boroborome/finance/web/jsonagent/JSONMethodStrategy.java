@@ -71,7 +71,7 @@ public abstract class JSONMethodStrategy
 						&& method.getReturnType() == String.class
 						&& method.getParameterTypes() != null
 						&& method.getParameterTypes().length == 1
-						&& method.getParameterTypes()[0] != HttpServletRequest.class);
+						&& method.getParameterTypes()[0] == HttpServletRequest.class);
 			}
 		});
 		
@@ -91,8 +91,8 @@ public abstract class JSONMethodStrategy
 						&& method.getReturnType() == Void.class
 						&& method.getParameterTypes() != null
 						&& method.getParameterTypes().length == 2
-						&& method.getParameterTypes()[0] != HttpServletRequest.class
-						&& method.getParameterTypes()[1] != Writer.class);
+						&& method.getParameterTypes()[0] == HttpServletRequest.class
+						&& method.getParameterTypes()[1] == Writer.class);
 			}
 		});
 	}
