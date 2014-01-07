@@ -44,8 +44,11 @@ com.boroborome.finance.AddDialogLogic.prototype.loadFinanceData = function()
 com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()  
 {
 	// collect all information
+	var strDate = $('#addDlgConsumeDate').val();
+	var date = new Date(strDate);
+	var timestamp = date.getTime();
    	var info = {
-   		consumeTime:$('#addDlgConsumeDate').val(),
+   		consumeTime:timestamp,
    		waresName:$('#addDlgWareName').val(),
    		price:$('#addDlgPrice').val(),
    		unit:$('#addDlgUnit').val(),
@@ -56,11 +59,13 @@ com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()
    	
    	// send information to the server
    	var logic = this;
-   	$.post('/agent/finance.add', info, function(data, status){logic.msgReceved(data, status);});
+   	var param = new Object();
+   	param.value = JSON.stringify(info);
+   	$.post('/agent/finance.add', param, function(data, status){logic.msgReceved(data, status);});
 };
 com.boroborome.finance.AddDialogLogic.prototype.msgReceved=function(data, status)
 {
-	if (data.charAt(0) != '\'')
+	if (data.charAt(0) != '{')
 	{
 		this.updateTip(data);
 		return;

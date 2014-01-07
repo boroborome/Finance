@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import com.boroborome.finance.model.FinanceRecord;
+
 /**
  * @author boroborome
  *
@@ -36,6 +38,12 @@ public class JSONUtil
 		Boolean isSimple = mapSimpleData.get(type);
 		return isSimple == null ? false : isSimple.booleanValue();
 	}
+	
+	public static void readObj4Json()
+	{
+		
+	}
+	
 	
 	public static void saveObj2WriterInJSON(Object obj, Writer writer) throws Exception
 	{
@@ -82,5 +90,29 @@ public class JSONUtil
 		}
 		
 		
+	}
+
+	public static void readObj4Json(Object javabean, Map<String, Object> mapJson)
+	{
+		Method[] methods = javabean.getClass().getDeclaredMethods();
+		for (Method method : methods)
+		{
+
+			try
+			{
+				if (method.getName().startsWith("set"))
+				{
+					String field = method.getName();
+					field = field.substring(field.indexOf("set") + 3);
+					field = field.toLowerCase().charAt(0) + field.substring(1);
+					method.invoke(javabean, new Object[] { mapJson.get(field) });
+				}
+			}
+			catch (Exception e)
+			{
+			}
+
+		}
+
 	}
 }

@@ -3,6 +3,11 @@
  */
 package com.boroborome.finance.web.jsonmodule;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,11 +15,13 @@ import com.boroborome.finance.logic.IDataLogic;
 import com.boroborome.finance.model.DataPage;
 import com.boroborome.finance.model.FinanceException;
 import com.boroborome.finance.model.FinanceRecord;
+import com.boroborome.finance.util.JSONUtil;
 import com.boroborome.finance.web.annotation.JSONMethod;
 import com.boroborome.finance.web.jsonagent.IJSONModule;
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.gson.Gson;
 
 /**
  * @author boroborome
@@ -34,7 +41,26 @@ public class FinanceModule implements IJSONModule
 	@JSONMethod(name = "add")
 	public String add(HttpServletRequest req)
 	{
-		return "add:" + req.getParameter("name");
+		String value = req.getParameter("value");
+		if (value == null || value.isEmpty())
+		{
+			return "Error:No input value.";
+		}
+		Gson gson = new Gson();
+		String result = "error";
+		try
+		{
+		FinanceRecord fr = gson.fromJson(value, FinanceRecord.class);
+		PersistenceManager pm = pmf.getPersistenceManager();
+		pm.makePersistent(fr);
+		pm.close();
+		result = gson.toJson(fr);
+		}
+		catch (Exception exp)
+		{
+			exp.printStackTrace(System.out);
+		}
+	    return result;
 	}
 	
 	@JSONMethod(name = "query")
