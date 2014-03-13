@@ -3,7 +3,6 @@
  */
 package com.boroborome.finance.model;
 
-import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -23,7 +22,7 @@ public class FinanceRecord
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	// @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-	private long createTime;
+	private Long createTime;
 	
 	/**
 	 * The consume time
@@ -70,7 +69,7 @@ public class FinanceRecord
 	/**
 	 * @return the createTime
 	 */
-	public long getCreateTime()
+	public Long getCreateTime()
 	{
 		return createTime;
 	}
@@ -78,7 +77,7 @@ public class FinanceRecord
 	/**
 	 * @param createTime the createTime to set
 	 */
-	public void setCreateTime(long createTime)
+	public void setCreateTime(Long createTime)
 	{
 		this.createTime = createTime;
 	}

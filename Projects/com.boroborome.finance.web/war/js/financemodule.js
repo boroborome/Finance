@@ -12,6 +12,17 @@ com.boroborome.finance.AddDialogLogic = function(dialog)
 
 com.boroborome.finance.utilfun.appendRecord2Table = function (record)
 {
+	/*
+[{"createTime":5066549580791808
+"consumeTime":1389744000
+"waresName":"WareName"
+"price":3
+"amount":0
+"unit":"Jin"
+"deadline":2
+"remark":""
+"kind":""}
+	 */
 	var rowData = '<tr><td>' + record.date + '</td><td>' + record.wares + '</td></tr>';
 	$('#tblFinance').append(rowData);
 };
