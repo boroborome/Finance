@@ -3,12 +3,15 @@
  */
 package com.boroborome.finance.web.jsonmodule;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.servlet.http.HttpServletRequest;
 
 import com.boroborome.finance.logic.IDataLogic;
@@ -66,20 +69,31 @@ public class FinanceModule implements IJSONModule
 	@JSONMethod(name = "query")
 	public String query(HttpServletRequest req) throws FinanceException, JSONException
 	{
-//		DataPage<FinanceRecord> resultPage = dataLogic.queryData(null, null);
-		JSONArray aryRecord = new JSONArray();
-//		while (resultPage.getResultIterator().hasNext())
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query query = pm.newQuery(FinanceRecord.class);
+		List<FinanceRecord> lstRecord = (List<FinanceRecord>) query.execute();
+		Gson gson = new Gson();
+		List<FinanceRecord> lst = new ArrayList<FinanceRecord>();
+		for (int i = 0; i < lstRecord.size(); ++i)
 		{
-//			FinanceRecord r = resultPage.getResultIterator().next();
-			JSONObject jsonRecord = new JSONObject();
-			jsonRecord.put("date", "2013-12-11");
-			jsonRecord.put("wares", "Apple");
-			jsonRecord.put("price", "4");
-			jsonRecord.put("unit", "Jin");
-//			jsonRecord.append(r., arg1)
-			
-			aryRecord.put(jsonRecord);
+			lst.add(lstRecord.get(i));
 		}
-		return aryRecord.toString();
+		return gson.toJson(lst);
+				
+////		DataPage<FinanceRecord> resultPage = dataLogic.queryData(null, null);
+//		JSONArray aryRecord = new JSONArray();
+////		while (resultPage.getResultIterator().hasNext())
+//		{
+////			FinanceRecord r = resultPage.getResultIterator().next();
+//			JSONObject jsonRecord = new JSONObject();
+//			jsonRecord.put("date", "2013-12-11");
+//			jsonRecord.put("wares", "Apple");
+//			jsonRecord.put("price", "4");
+//			jsonRecord.put("unit", "Jin");
+////			jsonRecord.append(r., arg1)
+//			
+//			aryRecord.put(jsonRecord);
+//		}
+//		return aryRecord.toString();
 	}
 }

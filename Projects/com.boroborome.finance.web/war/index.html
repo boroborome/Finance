@@ -28,41 +28,7 @@
 		
 $(document).ready(function()
 {
-	$('#btnAdd').click(function()
-	{
-		$('#dlgFinanceInfo').dialog('open');
-	});
-	$('#btnModify').click(function()
-	{
-  
-	});
-	$('#btnDelete').click(function(){
-  
-	});
-	$('#btnQuery').click(function(){
-		loadFinanceData();
-	});
-  
-	var addDialog = $('#dlgFinanceInfo');
-	var addDialogLogic = new com.boroborome.finance.AddDialogLogic(addDialog);
-    addDialog.dialog({
-		autoOpen: false,
-		width:400,
-		dialogClass: 'no-close',
-		buttons: [{
-		        	  text: 'OK',
-		        	  click: function()
-		        	  {
-		        	  	var logic = $(this).dialog("option", "dialogLogic");
-		        	  	logic.btnOK();
-		        	  }
-		          }],
-		 dialogLogic:addDialogLogic
-    });
-	
-    
-    
-    $('#addDlgConsumeDate').datepicker({dateFormat: 'yy-mm-dd'});
+	com.boroborome.finance.initalIndexHtml();
 });
 </script>
 	<style>

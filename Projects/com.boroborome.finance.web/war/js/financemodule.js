@@ -3,17 +3,23 @@
  */
 goog.provide('com.boroborome.finance');
 goog.provide('com.boroborome.finance.AddDialogLogic');
-
+goog.provide('com.boroborome.finance.utilfun');
 
 com.boroborome.finance.AddDialogLogic = function(dialog)
 {
 	this.dialog = dialog;
 };
 
-com.boroborome.finance.AddDialogLogic.prototype.appendRecord2Table = function (record)
+com.boroborome.finance.utilfun.appendRecord2Table = function (record)
 {
+	var rowData = '<tr><td>' + record.date + '</td><td>' + record.wares + '</td></tr>';
+	$('#tblFinance').append(rowData);
 };
-com.boroborome.finance.AddDialogLogic.prototype.loadFinanceData = function()
+com.boroborome.finance.utilfun.clearRecordTable = function()
+{
+	
+}
+com.boroborome.finance.utilfun.loadFinanceData = function()
 {
 	$.post('/agent/finance.query',
     {
@@ -22,19 +28,17 @@ com.boroborome.finance.AddDialogLogic.prototype.loadFinanceData = function()
     },
     function(data,status)
     {
-    	if (data.charAt(0) != '\'')
+    	if (data.charAt(0) != '[')
     	{
     		alert(data);
     		return;
     	}
     	// var aryRecord = JSON.parse(data);
-    	var aryRecord = data.evalJSON(true);
+    	//var aryRecord = data.evalJSON(true);
+    	var aryRecord = jQuery.parseJSON(data);
     	for (index = 0, size = aryRecord.length;index < size; ++index)
     	{
-    		var record = aryRecord[index];
-    		var rowData = '<tr><td>' + record.date + '</td><td>'
-    			+ record.wares + '</td></tr>';
-    		$('#tblFinance').append(rowData);
+    		com.boroborome.finance.utilfun.appendRecord2Table(aryRecord[index]);
     	}
  
     });
@@ -48,7 +52,7 @@ com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()
 	var date = new Date(strDate);
 	var timestamp = date.getTime();
    	var info = {
-   		consumeTime:timestamp,
+   		consumeTime:timestamp/1000,
    		waresName:$('#addDlgWareName').val(),
    		price:$('#addDlgPrice').val(),
    		unit:$('#addDlgUnit').val(),
@@ -72,8 +76,9 @@ com.boroborome.finance.AddDialogLogic.prototype.msgReceved=function(data, status
 	}
 	
 	// if the server save it success the show this record in table
-	var record = data.evalJSON(true);
-	this.appendRecord2Table(record);
+//	var record = data.evalJSON(true);
+	var record = jQuery.parseJSON(data);
+	com.boroborome.finance.utilfun.appendRecord2Table(record);
     this.dialog.dialog( 'close' );
 };
 com.boroborome.finance.AddDialogLogic.prototype.getTips=function()
@@ -90,4 +95,40 @@ com.boroborome.finance.AddDialogLogic.prototype.updateTip=function(msg)
 		tipCom.removeClass( 'ui-state-highlight', 1500 );
 	}, 500 );
 };
+com.boroborome.finance.initalIndexHtml = function()
+{
+	$('#btnAdd').click(function()
+	{
+		$('#dlgFinanceInfo').dialog('open');
+	});
+	$('#btnModify').click(function()
+	{
+  
+	});
+	$('#btnDelete').click(function(){
+  
+	});
+	$('#btnQuery').click(function(){
+		com.boroborome.finance.utilfun.loadFinanceData();
+	});
+  
+	var addDialog = $('#dlgFinanceInfo');
+	var addDialogLogic = new com.boroborome.finance.AddDialogLogic(addDialog);
+    addDialog.dialog({
+		autoOpen: false,
+		width:400,
+		dialogClass: 'no-close',
+		buttons: [{
+		        	  text: 'OK',
+		        	  click: function()
+		        	  {
+		        	  	var logic = $(this).dialog("option", "dialogLogic");
+		        	  	logic.btnOK();
+		        	  }
+		          }],
+		 dialogLogic:addDialogLogic
+    });
+    
+    $('#addDlgConsumeDate').datepicker({dateFormat: 'yy-mm-dd'});
+}
 

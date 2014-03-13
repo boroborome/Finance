@@ -210,6 +210,4 @@ public class FinanceRecord
 	{
 		this.kind = kind;
 	}
-	
-	
 }

@@ -108,7 +108,17 @@ public class JSONAgentServlet extends HttpServlet
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace(resp.getWriter());
+			resp.getWriter().println(e.getMessage());
+			//e.getStackTrace()
+//			e.printStackTrace(resp.getWriter());
+			StackTraceElement[] arySt = e.getStackTrace();
+			if (arySt != null)
+			{
+				for (int i = 0; i < 10 && i < arySt.length; ++i)
+				{
+					resp.getWriter().println(arySt[i].toString());
+				}
+			}
 		}
 
 	}
