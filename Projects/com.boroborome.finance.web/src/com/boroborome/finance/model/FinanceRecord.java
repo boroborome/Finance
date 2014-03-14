@@ -9,6 +9,9 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.boroborome.finance.DataUtil;
+import com.google.appengine.api.datastore.Entity;
+
 /**
  * @author boroborome
  * 
@@ -16,6 +19,16 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class FinanceRecord
 {
+	public static final String CreateTime = "createTime";
+	public static final String ConsumeTime = "consumeTime";
+	public static final String WaresName = "waresName";
+	public static final String Price = "price";
+	public static final String Amount = "amount";
+	public static final String Unit = "unit";
+	public static final String Deadline = "deadline";
+	public static final String Remark = "remark";
+	public static final String Kind = "kind";
+	
 	/**
 	 * The create time of record
 	 */
@@ -208,5 +221,33 @@ public class FinanceRecord
 	public void setKind(String kind)
 	{
 		this.kind = kind;
+	}
+
+	
+	
+	public void loadFromEntity(Entity entity)
+	{
+		createTime = DataUtil.getLong(entity, CreateTime, -1);
+		consumeTime = DataUtil.getInt(entity, ConsumeTime, -1);
+		waresName = DataUtil.getString(entity, WaresName, null);
+		price = DataUtil.getInt(entity, Price, -1);
+		amount = DataUtil.getInt(entity, Amount, -1);
+		unit = DataUtil.getString(entity, Unit, null);
+		deadline = DataUtil.getInt(entity, Deadline, -1);
+		remark = DataUtil.getString(entity, Remark, null);
+		kind = DataUtil.getString(entity, Kind, null);
+	}
+	
+	public void saveToEntity(Entity entity)
+	{
+		entity.setProperty(CreateTime, this.createTime);
+		entity.setProperty(ConsumeTime, this.consumeTime);
+		entity.setProperty(WaresName, this.waresName);
+		entity.setProperty(Price, this.price);
+		entity.setProperty(Amount, this.amount);
+		entity.setProperty(Unit, this.unit);
+		entity.setProperty(Deadline, this.deadline);
+		entity.setProperty(Remark, this.remark);
+		entity.setProperty(Kind, this.kind);
 	}
 }
