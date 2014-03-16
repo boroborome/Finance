@@ -73,13 +73,14 @@ public class FinanceModule implements IJSONModule
 		try
 		{
 			FinanceRecord fr = gson.fromJson(value, FinanceRecord.class);
+			fr.setCreateTime(System.currentTimeMillis());
 			Entity record = new Entity("FinanceRecord");
 			fr.saveToEntity(record);
 			datastore.put(record);
 //		PersistenceManager pm = pmf.getPersistenceManager();
 //		pm.makePersistent(fr);
 //		pm.close();
-//		result = gson.toJson(fr);
+		result = gson.toJson(fr);
 		}
 		catch (Exception exp)
 		{

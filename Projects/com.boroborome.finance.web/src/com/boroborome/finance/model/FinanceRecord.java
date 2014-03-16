@@ -35,7 +35,7 @@ public class FinanceRecord
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	// @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-	private Long createTime;
+	private long createTime;
 	
 	/**
 	 * The consume time
@@ -82,7 +82,7 @@ public class FinanceRecord
 	/**
 	 * @return the createTime
 	 */
-	public Long getCreateTime()
+	public long getCreateTime()
 	{
 		return createTime;
 	}
@@ -90,7 +90,7 @@ public class FinanceRecord
 	/**
 	 * @param createTime the createTime to set
 	 */
-	public void setCreateTime(Long createTime)
+	public void setCreateTime(long createTime)
 	{
 		this.createTime = createTime;
 	}

@@ -23,7 +23,11 @@ com.boroborome.finance.utilfun.appendRecord2Table = function (record)
 "remark":""
 "kind":""}
 	 */
-	var rowData = '<tr><td>' + record.date + '</td><td>' + record.wares + '</td></tr>';
+	var date = new Date();
+	date.setTime(record.consumeTime * 1000);
+	var rowData = '<tr onclick="com.boroborome.finance.selectrow();"><td>' + date + '</td><td>' + record.waresName + '</td><td>' + record.price + '</td>'
+		+'<td>' + record.amount + '</td><td>' + record.unit + '</td><td>' + record.deadline + '</td>'
+		+'<td>' + record.kind + '</td><td>' + record.createTime + '</td><td>' + record.remark + '</td></tr>';
 	$('#tblFinance').append(rowData);
 };
 com.boroborome.finance.utilfun.clearRecordTable = function()
@@ -106,6 +110,20 @@ com.boroborome.finance.AddDialogLogic.prototype.updateTip=function(msg)
 		tipCom.removeClass( 'ui-state-highlight', 1500 );
 	}, 500 );
 };
+com.boroborome.finance.selectrow = function()
+{
+	var selected = event.currentTarget.getAttribute("selected");
+	if (selected == "true")
+		{
+		selected = "false";
+		}
+	else
+		{
+		selected = "true";
+		}
+	event.currentTarget.setAttribute("selected", selected);
+};
+
 com.boroborome.finance.initalIndexHtml = function()
 {
 	$('#btnAdd').click(function()
@@ -114,10 +132,30 @@ com.boroborome.finance.initalIndexHtml = function()
 	});
 	$('#btnModify').click(function()
 	{
-  
+		var trSet = $('.bordered tr[selected=true]');
+		var length = trSet.length;
+		for (i = 0; i < length; ++i)
+		{
+			
+		}
 	});
 	$('#btnDelete').click(function(){
-  
+		var trSet = $('.bordered tr[selected=true]');
+		var length = trSet.length;
+		if (length <= 0)
+		{
+			return;
+		}
+		var result = confirm("OK?");
+		if (result)
+			{
+			return;
+			}
+
+		for (i = 0; i < length; ++i)
+		{
+			
+		}
 	});
 	$('#btnQuery').click(function(){
 		com.boroborome.finance.utilfun.loadFinanceData();
