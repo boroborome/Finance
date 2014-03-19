@@ -25,10 +25,14 @@ com.boroborome.finance.utilfun.appendRecord2Table = function (record)
 	 */
 	var date = new Date();
 	date.setTime(record.consumeTime * 1000);
-	var rowData = '<tr onclick="com.boroborome.finance.selectrow();"><td>' + date + '</td><td>' + record.waresName + '</td><td>' + record.price + '</td>'
+	
+	var row = document.createElement("tr");
+	row.dataValue = record;
+	row.setAttribute("onclick", "com.boroborome.finance.selectrow();");
+	row.innerHTML = '<td>' + date + '</td><td>' + record.waresName + '</td><td>' + record.price + '</td>'
 		+'<td>' + record.amount + '</td><td>' + record.unit + '</td><td>' + record.deadline + '</td>'
-		+'<td>' + record.kind + '</td><td>' + record.createTime + '</td><td>' + record.remark + '</td></tr>';
-	$('#tblFinance').append(rowData);
+		+'<td>' + record.kind + '</td><td>' + record.createTime + '</td><td>' + record.remark + '</td>';
+	document.getElementById('tblFinance').appendChild(row);
 };
 com.boroborome.finance.utilfun.clearRecordTable = function()
 {
@@ -113,14 +117,7 @@ com.boroborome.finance.AddDialogLogic.prototype.updateTip=function(msg)
 com.boroborome.finance.selectrow = function()
 {
 	var selected = event.currentTarget.getAttribute("selected");
-	if (selected == "true")
-		{
-		selected = "false";
-		}
-	else
-		{
-		selected = "true";
-		}
+	selected = (selected == "true") ? "false" : "true";
 	event.currentTarget.setAttribute("selected", selected);
 };
 
@@ -134,10 +131,24 @@ com.boroborome.finance.initalIndexHtml = function()
 	{
 		var trSet = $('.bordered tr[selected=true]');
 		var length = trSet.length;
-		for (i = 0; i < length; ++i)
+		//select first one
+		if (length < 1)
 		{
-			
+			return;
 		}
+		var dataValue = trSet[0].dataValue;
+		
+		var date = new Date();
+		date.setTime(dataValue.consumeTime * 1000);
+		$('#addDlgConsumeDate').val(date);
+		$('#addDlgWareName').val(dataValue.waresName);
+		$('#addDlgPrice').val(dataValue.price);
+		$('#addDlgUnit').val(dataValue.unit);
+		$('#addDlgDeadline').val(dataValue.deadline);
+		$('#addDlgKind').val(dataValue.kind);
+		$('#addDlgRemark').val(dataValue.remark);
+		$('#dlgFinanceInfo').dialog('open');
+	   	
 	});
 	$('#btnDelete').click(function(){
 		var trSet = $('.bordered tr[selected=true]');
