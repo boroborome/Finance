@@ -4,37 +4,28 @@
 package com.boroborome.finance.web.jsonmodule;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.servlet.http.HttpServletRequest;
 
 import com.boroborome.finance.logic.IDataLogic;
-import com.boroborome.finance.model.DataPage;
 import com.boroborome.finance.model.FinanceException;
 import com.boroborome.finance.model.FinanceRecord;
-import com.boroborome.finance.util.JSONUtil;
 import com.boroborome.finance.web.annotation.JSONMethod;
-import com.boroborome.finance.web.jsonagent.IJSONModule;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.gson.Gson;
 
 /**
  * @author boroborome
  *
  */
-public class FinanceModule implements IJSONModule
+public class FinanceModule implements IJSONDataModule
 {
 	private IDataLogic<FinanceRecord> dataLogic;
 	private PersistenceManagerFactory pmf;
@@ -59,6 +50,7 @@ public class FinanceModule implements IJSONModule
 	}
 
 	@JSONMethod(name = "add")
+	@Override
 	public String add(HttpServletRequest req)
 	{
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -77,10 +69,7 @@ public class FinanceModule implements IJSONModule
 			Entity record = new Entity("FinanceRecord");
 			fr.saveToEntity(record);
 			datastore.put(record);
-//		PersistenceManager pm = pmf.getPersistenceManager();
-//		pm.makePersistent(fr);
-//		pm.close();
-		result = gson.toJson(fr);
+			result = gson.toJson(fr);
 		}
 		catch (Exception exp)
 		{
@@ -90,6 +79,7 @@ public class FinanceModule implements IJSONModule
 	}
 	
 	@JSONMethod(name = "query")
+	@Override
 	public String query(HttpServletRequest req) throws FinanceException, JSONException
 	{
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -105,37 +95,45 @@ public class FinanceModule implements IJSONModule
 			FinanceRecord record = new FinanceRecord();
 			record.loadFromEntity(entity);
 			lst.add(record);
-//		  String firstName = (String) result.getProperty("firstName");
-//		  String lastName = (String) result.getProperty("lastName");
-//		  Long height = (Long) result.getProperty("height");
-//
-//		  System.out.println(firstName + " " + lastName + ", " + height + " inches tall");
 		}
-//		PersistenceManager pm = pmf.getPersistenceManager();
-//		Query query = pm.newQuery(FinanceRecord.class);
-//		List<FinanceRecord> lstRecord = (List<FinanceRecord>) query.execute();
-//		List<FinanceRecord> lst = new ArrayList<FinanceRecord>();
-//		for (int i = 0; i < lstRecord.size(); ++i)
-//		{
-//			lst.add(lstRecord.get(i));
-//		}
 		Gson gson = new Gson();
 		return gson.toJson(lst);
 				
-////		DataPage<FinanceRecord> resultPage = dataLogic.queryData(null, null);
-//		JSONArray aryRecord = new JSONArray();
-////		while (resultPage.getResultIterator().hasNext())
-//		{
-////			FinanceRecord r = resultPage.getResultIterator().next();
-//			JSONObject jsonRecord = new JSONObject();
-//			jsonRecord.put("date", "2013-12-11");
-//			jsonRecord.put("wares", "Apple");
-//			jsonRecord.put("price", "4");
-//			jsonRecord.put("unit", "Jin");
-////			jsonRecord.append(r., arg1)
-//			
-//			aryRecord.put(jsonRecord);
-//		}
-//		return aryRecord.toString();
+	}
+
+	@JSONMethod(name = "modify")
+	@Override
+	public String modify(HttpServletRequest req) throws Exception
+	{
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		String value = req.getParameter("value");
+		if (value == null || value.isEmpty())
+		{
+			return "Error:No input value.";
+		}
+		Gson gson = new Gson();
+		String result = "error";
+		try
+		{
+			FinanceRecord fr = gson.fromJson(value, FinanceRecord.class);
+			Entity record = new Entity("FinanceRecord");
+			fr.saveToEntity(record);
+			datastore.put(record);
+			result = gson.toJson(fr);
+		}
+		catch (Exception exp)
+		{
+			exp.printStackTrace(System.out);
+		}
+	    return result;
+	}
+
+	@JSONMethod(name = "delete")
+	@Override
+	public String delete(HttpServletRequest req) throws Exception
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

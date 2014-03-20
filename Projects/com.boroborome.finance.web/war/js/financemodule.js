@@ -67,6 +67,7 @@ com.boroborome.finance.utilfun.loadFinanceData = function()
 com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()  
 {
 	// collect all information
+	var curAction = $('#dlgFinanceInfo').dialog('option', 'action');
 	var strDate = $('#addDlgConsumeDate').val();
 	var date = new Date(strDate);
 	var timestamp = date.getTime();
@@ -84,7 +85,7 @@ com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()
    	var logic = this;
    	var param = new Object();
    	param.value = JSON.stringify(info);
-   	$.post('/agent/finance.add', param, function(data, status){logic.msgReceved(data, status);});
+   	$.post('/agent/finance.' + curAction, param, function(data, status){logic.msgReceved(data, status);});
 };
 com.boroborome.finance.AddDialogLogic.prototype.msgReceved=function(data, status)
 {
@@ -125,6 +126,7 @@ com.boroborome.finance.initalIndexHtml = function()
 {
 	$('#btnAdd').click(function()
 	{
+		$('#dlgFinanceInfo').dialog('option', 'action', 'add');
 		$('#dlgFinanceInfo').dialog('open');
 	});
 	$('#btnModify').click(function()
@@ -147,6 +149,7 @@ com.boroborome.finance.initalIndexHtml = function()
 		$('#addDlgDeadline').val(dataValue.deadline);
 		$('#addDlgKind').val(dataValue.kind);
 		$('#addDlgRemark').val(dataValue.remark);
+		$('#dlgFinanceInfo').dialog('option', 'action', 'modify');
 		$('#dlgFinanceInfo').dialog('open');
 	   	
 	});

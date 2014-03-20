@@ -5,6 +5,7 @@ package com.boroborome.finance.web.jsonmodule;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.boroborome.finance.web.annotation.JSONMethod;
 import com.boroborome.finance.web.jsonagent.IJSONModule;
 
 /**
@@ -12,8 +13,17 @@ import com.boroborome.finance.web.jsonagent.IJSONModule;
  * @author boroborome
  *
  */
-public interface IJSONDataModule<DataType> extends IJSONModule
+public interface IJSONDataModule extends IJSONModule
 {
-	String add(HttpServletRequest req) throws Exception;
+	@JSONMethod(name = "query")
 	String query(HttpServletRequest req) throws Exception;
+	
+	@JSONMethod(name = "add")
+	String add(HttpServletRequest req) throws Exception;
+	
+	@JSONMethod(name = "modify")
+	String modify(HttpServletRequest req) throws Exception;
+	
+	@JSONMethod(name = "delete")
+	String delete(HttpServletRequest req) throws Exception;
 }
