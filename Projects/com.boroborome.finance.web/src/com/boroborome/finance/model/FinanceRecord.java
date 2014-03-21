@@ -225,6 +225,29 @@ public class FinanceRecord
 
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return (int) this.createTime;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof FinanceRecord))
+		{
+			return false;
+		}
+		FinanceRecord that = (FinanceRecord) obj;
+		return this.createTime == that.createTime;
+	}
+
 	public void loadFromEntity(Entity entity)
 	{
 		createTime = DataUtil.getLong(entity, CreateTime, -1);

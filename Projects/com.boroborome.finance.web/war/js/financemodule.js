@@ -9,29 +9,21 @@ com.boroborome.finance.AddDialogLogic = function(dialog)
 {
 	this.dialog = dialog;
 };
-
-com.boroborome.finance.utilfun.appendRecord2Table = function (record)
+com.boroborome.finance.utilfun.updateRecordRow = function(row, record)
 {
-	/*
-[{"createTime":5066549580791808
-"consumeTime":1389744000
-"waresName":"WareName"
-"price":3
-"amount":0
-"unit":"Jin"
-"deadline":2
-"remark":""
-"kind":""}
-	 */
+	row.dataValue = record;
+	
 	var date = new Date();
 	date.setTime(record.consumeTime * 1000);
-	
-	var row = document.createElement("tr");
-	row.dataValue = record;
 	row.setAttribute("onclick", "com.boroborome.finance.selectrow();");
 	row.innerHTML = '<td>' + date + '</td><td>' + record.waresName + '</td><td>' + record.price + '</td>'
 		+'<td>' + record.amount + '</td><td>' + record.unit + '</td><td>' + record.deadline + '</td>'
 		+'<td>' + record.kind + '</td><td>' + record.createTime + '</td><td>' + record.remark + '</td>';
+}
+com.boroborome.finance.utilfun.appendRecord2Table = function (record)
+{
+	var row = document.createElement("tr");
+	com.boroborome.finance.utilfun.updateRecordRow(row, record)
 	document.getElementById('tblFinance').appendChild(row);
 };
 com.boroborome.finance.utilfun.clearRecordTable = function()
@@ -55,6 +47,8 @@ com.boroborome.finance.utilfun.loadFinanceData = function()
     	// var aryRecord = JSON.parse(data);
     	//var aryRecord = data.evalJSON(true);
     	var aryRecord = jQuery.parseJSON(data);
+    	var allRecords = $('#tblFinance tr[onclick]');
+    	allRecords.remove();
     	for (index = 0, size = aryRecord.length;index < size; ++index)
     	{
     		com.boroborome.finance.utilfun.appendRecord2Table(aryRecord[index]);
@@ -80,6 +74,12 @@ com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()
    		kind:$('#addDlgKind').val(),
    		remark:$('#addDlgRemark').val()
    		};
+   	var dlg = $('#dlgFinanceInfo')[0];
+   	var currentRow = dlg.currentRow;
+   	if (currentRow != null)
+   	{
+   		info.createTime = currentRow.dataValue.createTime;
+   	}
    	
    	// send information to the server
    	var logic = this;
@@ -98,7 +98,18 @@ com.boroborome.finance.AddDialogLogic.prototype.msgReceved=function(data, status
 	// if the server save it success the show this record in table
 //	var record = data.evalJSON(true);
 	var record = jQuery.parseJSON(data);
-	com.boroborome.finance.utilfun.appendRecord2Table(record);
+	
+	var curAction = $('#dlgFinanceInfo').dialog('option', 'action');
+	if (curAction == 'add')
+	{
+		com.boroborome.finance.utilfun.appendRecord2Table(record);		
+	}
+	else
+	{
+		var dlg = $('#dlgFinanceInfo')[0];
+	   	var currentRow = dlg.currentRow;
+	   	com.boroborome.finance.utilfun.updateRecordRow(currentRow, record)
+	}
     this.dialog.dialog( 'close' );
 };
 com.boroborome.finance.AddDialogLogic.prototype.getTips=function()
@@ -138,7 +149,11 @@ com.boroborome.finance.initalIndexHtml = function()
 		{
 			return;
 		}
-		var dataValue = trSet[0].dataValue;
+		
+		var currentRow = trSet[0];
+		var dataValue = currentRow.dataValue;
+		var dlg = $('#dlgFinanceInfo')[0];
+		dlg.currentRow = currentRow;
 		
 		var date = new Date();
 		date.setTime(dataValue.consumeTime * 1000);
@@ -162,14 +177,22 @@ com.boroborome.finance.initalIndexHtml = function()
 		}
 		var result = confirm("OK?");
 		if (result)
-			{
+		{
 			return;
-			}
+		}
 
+		var lstInfo = new Object();
+		var mapInfo = new Object();
 		for (i = 0; i < length; ++i)
 		{
-			
+			lstInfo[i] = trSet[i].dataValue;
+			//mapInfo[]
 		}
+		// send information to the server
+	   	var logic = this;
+	   	var param = new Object();
+	   	param.value = JSON.stringify(lstInfo);
+	   	//$.post('/agent/finance.delete', param, function(data, status){logic.msgReceved(data, status);});
 	});
 	$('#btnQuery').click(function(){
 		com.boroborome.finance.utilfun.loadFinanceData();
