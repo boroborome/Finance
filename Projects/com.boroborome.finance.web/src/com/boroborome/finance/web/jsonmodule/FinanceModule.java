@@ -133,7 +133,8 @@ public class FinanceModule implements IJSONDataModule
 	@Override
 	public String delete(HttpServletRequest req) throws Exception
 	{
-		// TODO Auto-generated method stub
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
 		return null;
 	}
 }
