@@ -79,6 +79,7 @@ com.boroborome.finance.AddDialogLogic.prototype.btnOK=function()
    	if (currentRow != null)
    	{
    		info.createTime = currentRow.dataValue.createTime;
+   		info.key = currentRow.dataValue.key;
    	}
    	
    	// send information to the server
@@ -175,24 +176,28 @@ com.boroborome.finance.initalIndexHtml = function()
 		{
 			return;
 		}
-		var result = confirm("OK?");
-		if (result)
+		var result = confirm("Are sure to delete all selected row?");
+		if (!result)
 		{
 			return;
 		}
 
-		var lstInfo = new Object();
-		var mapInfo = new Object();
+		var lstInfo = new Array();
 		for (i = 0; i < length; ++i)
 		{
-			lstInfo[i] = trSet[i].dataValue;
-			//mapInfo[]
+			lstInfo[i] = trSet[i].dataValue.key;
 		}
 		// send information to the server
-	   	var logic = this;
 	   	var param = new Object();
 	   	param.value = JSON.stringify(lstInfo);
-	   	//$.post('/agent/finance.delete', param, function(data, status){logic.msgReceved(data, status);});
+	   	$.post('/agent/finance.delete', param, function(data, status){
+	   		if (data != 'OK')
+	   		{
+	   			this.updateTip(data);
+	   			return;
+	   		}
+	   		$('.bordered tr[selected=true]').remove();
+	   	});
 	});
 	$('#btnQuery').click(function(){
 		com.boroborome.finance.utilfun.loadFinanceData();

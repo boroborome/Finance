@@ -10,6 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.boroborome.finance.DataUtil;
+import com.boroborome.finance.web.jsonmodule.AbstractEntityObject;
 import com.google.appengine.api.datastore.Entity;
 
 /**
@@ -17,7 +18,7 @@ import com.google.appengine.api.datastore.Entity;
  * 
  */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class FinanceRecord
+public class FinanceRecord extends AbstractEntityObject
 {
 	public static final String CreateTime = "createTime";
 	public static final String ConsumeTime = "consumeTime";
@@ -248,6 +249,7 @@ public class FinanceRecord
 		return this.createTime == that.createTime;
 	}
 
+	@Override
 	public void loadFromEntity(Entity entity)
 	{
 		createTime = DataUtil.getLong(entity, CreateTime, -1);
@@ -261,6 +263,7 @@ public class FinanceRecord
 		kind = DataUtil.getString(entity, Kind, null);
 	}
 	
+	@Override
 	public void saveToEntity(Entity entity)
 	{
 		entity.setProperty(CreateTime, this.createTime);
