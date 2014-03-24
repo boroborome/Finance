@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>rename pan.baidu.com</title>
+		<script type="text/javascript" src="js/jquery/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.mouse.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.datepicker.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.draggable.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.position.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.resizable.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.button.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.dialog.js"></script>
+		<script type="text/javascript" src="js/jquery/ui/jquery.ui.effect.js"></script>
+		<script type="text/javascript" src="js/rename.js"></script>
+		<script>
+		$(document).ready(function()
+		{
+			init();
+		});
+		</script>
+	</head>
+	<body>
+		URL:<textarea style="width:1000px;height:50px" id="url">http://pan.baidu.com/api/filemanager?channel=chunlei&clienttype=0&web=1&opera=rename&bdstoken=eed07ae668de49591857c4560851f836&channel=chunlei&clienttype=0&web=1</textarea><br>
+		Path:<input id="path" type="text" value="/我的文档/"/><br>
+		FileName:<input id="fileName" type="text" value="欧洲史.pdf"/><br>
+		NewFileName:<input id="newFileName" type="text" value="欧洲史2222.pdf"/><br>
+		<input type="button" onclick="startSend();" value="send"/>
+	</body>
+</html>
